@@ -7,7 +7,7 @@ Requirements: Symphony 2.0.6+
 
 ***
 
-**Media Resolvr** is an extension for [Symphony CMS](http://symphony-cms.com/) that makes it easier resolve page URIs to their embeddable media. Flickrs disconnect between page URIs (e.g., <http://www.flickr.com/photos/makenosound/4025741494/>) and the actual image URI (e.e.g, <http://farm4.static.flickr.com/3501/4025741494_5d20396e87.jpg>) was the impetus for developing this extension, though it can be useful for other services.
+**Media Resolvr** is an extension for [Symphony CMS](http://symphony-cms.com/) that makes it easier resolve page URIs to their embeddable media. Flickrs disconnect between page URIs (e.g., <http://www.flickr.com/photos/makenosound/4025741494/>) and the actual image URI (e.g, <http://farm4.static.flickr.com/3501/4025741494_5d20396e87.jpg>) was the impetus for developing this extension, though it can be useful for other services.
 
 ## Installation ##
 
@@ -17,7 +17,7 @@ Requirements: Symphony 2.0.6+
 
 ## Usage ##
 
-This extension add an extra rewrite rule to the Symphony `.htaccess` file that lets you construct URIs to embeddable media with the following structure:
+This extension adds an extra rewrite rule to the Symphony `.htaccess` file that lets you construct URIs to embeddable media with the following structure:
 
     http://domain.tld/resolvr/http://service.tld/url-to-media-page/
 
