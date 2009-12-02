@@ -8,12 +8,12 @@
     public function about()
     {
       return array('name' => 'Media Resolvr',
-             'version' => '1.0',
+             'version' => '0.1',
              'release-date' => '2009-12-01',
              'author' => array('name' => 'Max Wheeler',
                        'website' => 'http://makenosound.com/',
                        'email' => 'max@makenosound.com'),
-             'description' => 'Resolves URIs to their embeddable media.'
+             'description' => 'Resolves page URIs to their embeddable media.'
              );
     }
     
@@ -49,7 +49,7 @@
       
       $rule = "
 	### START RESOLVR RULES
-	RewriteRule ^resolvr/((.*\/?))?$ /{$rewrite_base}extensions/media_resolvr/lib/resolvr.php?url={$token}%{QUERY_STRING}	[NC,L]
+	RewriteRule ^resolvr/((.*\/?))?$ /{$rewrite_base}extensions/media_resolvr/lib/resolvr.php?url={$token}&%{QUERY_STRING}	[NC,L]
 	### END RESOLVR RULES\n\n";
       
       $htaccess = self::__removeAPIRules($htaccess);
