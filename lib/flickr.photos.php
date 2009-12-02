@@ -1,6 +1,6 @@
 <?php
-
-  $url = $_GET['url'];
+  
+  # Get the size
   $size = $_GET['size'];
   
   $pattern = '/photos\/[^\/]+\/([0-9]+)/i';
@@ -22,7 +22,7 @@
   # Construct the URI request from Flickr
   $uri = "http://api.flickr.com/services/rest/?".implode('&', $encoded_params);
 
-  # Get CURL going
+  # CURL it up
   $ch = curl_init();
 
   curl_setopt($ch, CURLOPT_URL, $uri);

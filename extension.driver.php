@@ -1,21 +1,25 @@
 <?php
 
-  Class extension_flickr_resolvr extends Extension
+  Class extension_media_resolvr extends Extension
   {    
   /*-------------------------------------------------------------------------
     Extension definition
   -------------------------------------------------------------------------*/
     public function about()
     {
-      return array('name' => 'Flickr Resolvr',
+      return array('name' => 'Media Resolvr',
              'version' => '1.0',
              'release-date' => '2009-12-01',
              'author' => array('name' => 'Max Wheeler',
                        'website' => 'http://makenosound.com/',
                        'email' => 'max@makenosound.com'),
-             'description' => 'Resolves various Flickr image sizes from their photo page URI.'
+             'description' => 'Resolves URIs to their embeddable media.'
              );
     }
+    
+    /*-------------------------------------------------------------------------
+      Un/installation
+    -------------------------------------------------------------------------*/
   
     public function uninstall()
     {
@@ -39,15 +43,22 @@
       if(preg_match('/RewriteBase\s+([^\s]+)/i', $htaccess, $match)){
         $rewrite_base = trim($match[1], '/') . '/';
       }
+      
+      ## Cannot use $1 in a preg_replace replacement string, so using a token instead
+      $token = md5(time());
+      
       $rule = "
 	### START RESOLVR RULES
-	RewriteRule ^flickr-resolvr(\/(.*\/?))?$ {$rewrite_base}extensions/flickr_resolver/lib/flickr.photos.getSizes.php?url=%{QUERY_STRING}	[NC,L]
+	RewriteRule ^resolvr/((.*\/?))?$ /{$rewrite_base}extensions/media_resolvr/lib/resolvr.php?url={$token}%{QUERY_STRING}	[NC,L]
 	### END RESOLVR RULES\n\n";
-
+      
       $htaccess = self::__removeAPIRules($htaccess);
-
+      
       $htaccess = preg_replace('/RewriteRule .\* - \[S=14\]\s*/i', "RewriteRule .* - [S=14]\n{$rule}\t", $htaccess);
-
+      
+      ## Replace the token with the real value
+      $htaccess = str_replace($token, '$1', $htaccess);
+      
       return @file_put_contents(DOCROOT . '/.htaccess', $htaccess);
     }
     
